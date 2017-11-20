@@ -11,7 +11,7 @@ option_list = list(
   make_option(c("-k", "--Kmin"), type="numeric", default=2, help="minimum number of clusters [default= %default]", metavar="numeric"),
   make_option(c("-K", "--Kmax"), type="numeric", default=6, help="maximum number of clusters [default= %default]", metavar="numeric"),
   make_option(c("-m", "--methylation"), type="character", default=NULL, help="file with methylation data [default= %default]", metavar="character"),
-  make_option(c("-c", "--CNV"), type="character", default=NULL, help="file with copy number data [default= %default]", metavar="character"),
+  make_option(c("-C", "--CNV"), type="character", default=NULL, help="file with copy number data [default= %default]", metavar="character"),
   make_option(c("-o", "--out"), type="character", default="out", help="output directory name [default= %default]", metavar="character"),
   make_option(c("-c", "--cores"), type="numeric", default=1, help="number of cores for statistical computation [default= %default]", metavar="numeric")
 ); 
