@@ -16,6 +16,9 @@ option_list = list(
   make_option(c("-c", "--cores"), type="numeric", default=1, help="number of cores for statistical computation [default= %default]", metavar="numeric")
 ); 
 
+opt_parser = OptionParser(option_list=option_list);
+opt = parse_args(opt_parser);
+
 Kmin  = as.numeric(opt$Kmin)
 Kmax  = as.numeric(opt$Kmax)
 cores = as.numeric(opt$cores)
