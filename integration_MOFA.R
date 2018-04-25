@@ -15,7 +15,9 @@ option_list = list(
   make_option(c("-M", "--methylation"), type="character", default=NULL, help="Methylation dataset [default= %default]", metavar="character"),
   make_option(c("-S", "--mutation"), type="character", default=NULL, help="Mutations dataset [default= %default]", metavar="character"),
   make_option(c("-r", "--robustness"), action="store_true", default=TRUE, help="Perform robustness analysis [default= %default]"),
-  make_option(c("-i", "--maxiter"), type="numeric", default=10000, help="Maximum number of iterations [default= %default]")
+  make_option(c("-i", "--maxiter"), type="numeric", default=10000, help="Maximum number of iterations [default= %default]"),
+  make_option(c("-n", "--nconsreps"), type="numeric", default=100, help="Number of iterations for consensus clustering [default= %default]"),
+  make_option(c("-m", "--nreps"), type="numeric", default=10, help="Maximum number of iterations for Latemt Factor robustness analysis [default= %default]")
 ); 
 
 require(MOFAtools)
@@ -32,11 +34,12 @@ if(!(is.null(opt$methylation))) data$Methyl   = read.table(opt$methylation,h=T,r
 
 if(!is.null(opt$robustness) ){
   print("Perform robustness analysis")
-  nrep = 10
+  nrep = as.numeric(opt$nconsreps)
   pItem = 0.8
   for(i in 1:nrep){
     print(i)
     print(c("outfile",paste(opt$out,"/MOFA",opt$suffix,"_sub",i,".hdf5",sep="")))
+    rm( MOFAobjecttmp )
     MOFAobjecttmp <- createMOFAobject(data)
     nsamp = MOFAobjecttmp@Dimensions$N
     samptmp = sort(sample(1:nsamp,size = round(pItem*nsamp),replace=F) )
@@ -57,10 +60,10 @@ if(!is.null(opt$robustness) ){
 
 #perform MOFA run
 print("Perform multiple runs")
-nrep = 10
 MOFAfinal=c()
 bestELBO = -Inf
 bestmodel = 1
+nrep = as.numeric(opt$nreps)
 for(i in 1:nrep){
     print(i)
     print(c("outfile",paste(opt$out,"/MOFA",opt$suffix,"_run",i,".hdf5",sep="")) )
