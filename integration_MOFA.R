@@ -49,9 +49,16 @@ if(!is.null(opt$robustness) ){
     DirOptions <- list( "dataDir" = tempdir(), "outFile" = paste(opt$out,"/MOFA",opt$suffix,"_sub",i,".hdf5",sep="") )
     ModelOptions <- getDefaultModelOpts(MOFAobjecttmp)
     ModelOptions$likelihood[names(ModelOptions$likelihood)=="Mutation"] = "bernoulli"
+    ModelOptions$learnIntercept = F
     TrainOptions <- getDefaultTrainOpts()
     TrainOptions$maxiter = as.numeric(opt$maxiter)
-    MOFAobjecttmp <- prepareMOFA(MOFAobjecttmp, DirOptions = DirOptions,ModelOptions = ModelOptions,TrainOptions = TrainOptions)
+    DataOptions <- getDefaultDataOpts()
+    DataOptions$centerFeatures = T
+    print(DirOptions)
+    print(ModelOptions)
+    print(TrainOptions)
+    print(DataOptions)
+    MOFAobjecttmp <- prepareMOFA(MOFAobjecttmp, DirOptions = DirOptions,ModelOptions = ModelOptions,TrainOptions = TrainOptions,DataOptions = DataOptions)
   
     # run
     MOFAobjecttmp <- runMOFA(MOFAobjecttmp, DirOptions)
@@ -71,9 +78,16 @@ for(i in 1:nrep){
     DirOptions <- list( "dataDir" = tempdir(), "outFile" = paste(opt$out,"/MOFA",opt$suffix,"_run",i,".hdf5",sep="") )
     ModelOptions <- getDefaultModelOpts(MOFAobjecttmp)
     ModelOptions$likelihood[names(ModelOptions$likelihood)=="Mutation"] = "bernoulli"
+    ModelOptions$learnIntercept = F
     TrainOptions <- getDefaultTrainOpts()
     TrainOptions$maxiter = as.numeric(opt$maxiter)
-    MOFAobjecttmp <- prepareMOFA(MOFAobjecttmp, DirOptions = DirOptions,ModelOptions = ModelOptions,TrainOptions = TrainOptions)
+    DataOptions <- getDefaultDataOpts()
+    DataOptions$centerFeatures = T
+    print(DirOptions)
+    print(ModelOptions)
+    print(TrainOptions)
+    print(DataOptions)
+    MOFAobjecttmp <- prepareMOFA(MOFAobjecttmp, DirOptions = DirOptions,ModelOptions = ModelOptions,TrainOptions = TrainOptions,DataOptions = DataOptions)
     
     # run
     MOFAobjecttmp <- runMOFA(MOFAobjecttmp, DirOptions)
@@ -260,7 +274,6 @@ if(!is.null(opt$group_file)){
   boxplot( MOFAobject@TrainData$RNA[which( rownames( MOFAobject@TrainData$RNA )=="MKI67" ),] ~ meta$Type  )
   boxplot( MOFAobject@TrainData$RNA[which( rownames( MOFAobject@TrainData$RNA )=="MKI67" ),] ~ kmb$cluster  )
   dev.off()
-  
   
 }
 
