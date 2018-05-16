@@ -47,12 +47,12 @@ if(!is.null(opt$robustness) ){
     for(j in 1:length(MOFAobjecttmp@TrainData) ) MOFAobjecttmp@TrainData[[j]] = MOFAobjecttmp@TrainData[[j]][,samptmp]
     
     DirOptions <- list( "dataDir" = tempdir(), "outFile" = paste(opt$out,"/MOFA",opt$suffix,"_sub",i,".hdf5",sep="") )
-    ModelOptions <- getDefaultModelOpts(MOFAobjecttmp)
+    ModelOptions <- getDefaultModelOptions(MOFAobjecttmp)
     ModelOptions$likelihood[names(ModelOptions$likelihood)=="Mutation"] = "bernoulli"
     ModelOptions$learnIntercept = F
-    TrainOptions <- getDefaultTrainOpts()
+    TrainOptions <- getDefaultTrainOptions()
     TrainOptions$maxiter = as.numeric(opt$maxiter)
-    DataOptions <- getDefaultDataOpts()
+    DataOptions <- getDefaultDataOptions()
     DataOptions$centerFeatures = T
     print(DirOptions)
     print(ModelOptions)
@@ -76,12 +76,12 @@ for(i in 1:nrep){
     print(c("outfile",paste(opt$out,"/MOFA",opt$suffix,"_run",i,".hdf5",sep="")) )
     MOFAobjecttmp <- createMOFAobject(data)
     DirOptions <- list( "dataDir" = tempdir(), "outFile" = paste(opt$out,"/MOFA",opt$suffix,"_run",i,".hdf5",sep="") )
-    ModelOptions <- getDefaultModelOpts(MOFAobjecttmp)
+    ModelOptions <- getDefaultModelOptions(MOFAobjecttmp)
     ModelOptions$likelihood[names(ModelOptions$likelihood)=="Mutation"] = "bernoulli"
     ModelOptions$learnIntercept = F
-    TrainOptions <- getDefaultTrainOpts()
+    TrainOptions <- getDefaultTrainOptions()
     TrainOptions$maxiter = as.numeric(opt$maxiter)
-    DataOptions <- getDefaultDataOpts()
+    DataOptions <- getDefaultDataOptions()
     DataOptions$centerFeatures = T
     print(DirOptions)
     print(ModelOptions)
