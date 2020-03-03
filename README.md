@@ -47,3 +47,9 @@ In addition, for each value of *K*:
 - an .RData file with clustering results
 - a heatmap with the top features for each dataset
 - a .txt file with the name of the top features for each dataset
+
+## Regression analysis for unsupervised analysis: *PCA_regression.R*
+
+This script provides functions to perform regression analysis between variables (e.g., batch variables or clinical variables) and latent factors as obtained by PCA or group factor analysis.
+
+
